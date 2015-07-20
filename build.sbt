@@ -1,25 +1,26 @@
 import org.scalajs.sbtplugin.ScalaJSPlugin.autoImport._
-
-name := "scalajs-real-practical-guide"
+import sbt.Keys._
 
 lazy val root = project.in(file(".")).
   aggregate(jsProject, jvmProject).
   settings(
+    version := Settings.versions.version,
     publish := {},
     publishLocal := {}
   )
 
 lazy val cross = crossProject.in(file(".")).
   settings(
-    name := "scalajs-rpg",
-    version := "0.1-SNAPSHOT",
-    scalaVersion := "2.11.7"
+    name := Settings.name,
+    version := Settings.versions.version,
+    scalaVersion := Settings.versions.scala,
+    persistLauncher in Compile := true
   ).
   jvmSettings(
     // Add JVM-specific settings here
   ).
   jsSettings(
-    // Add JS-specific settings here
+    libraryDependencies ++= Settings.jsDependencies.value
   )
 
 lazy val jvmProject = cross.jvm
