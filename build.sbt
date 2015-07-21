@@ -4,7 +4,7 @@ import sbt.Keys._
 lazy val root = project.in(file(".")).
   aggregate(jsProject, jvmProject).
   settings(
-    version := Settings.versions.version,
+    version := Settings.version,
     publish := {},
     publishLocal := {}
   )
@@ -12,16 +12,18 @@ lazy val root = project.in(file(".")).
 lazy val cross = crossProject.in(file(".")).
   settings(
     name := Settings.name,
-    version := Settings.versions.version,
+    version := Settings.version,
     scalaVersion := Settings.versions.scala,
-    persistLauncher in Compile := true
+    persistLauncher in Compile := true,
+    libraryDependencies ++= Settings.sharedDependencies.value
   ).
   jvmSettings(
     // Add JVM-specific settings here
   ).
   jsSettings(
-    libraryDependencies ++= Settings.jsDependencies.value
+    libraryDependencies ++= Settings.jsDependencies.value,
+    jsDependencies ++= Settings.jsScriptDependencies.value
   )
 
 lazy val jvmProject = cross.jvm
-lazy val jsProject = cross.js
+lazy val jsProject = cross.js.enablePlugins(SbtWeb)

@@ -1,18 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Scala JS Really Practical GUIDE (ScalaJS-RPG)</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Scala JS Really Practical GUIDE (ScalaJS-RPG)</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
-<body>
+    <body>
 
-<h1>ScalaJS-RPG - fast-optimized version</h1>
+        <h1>ScalaJS-RPG - fast-optimized version</h1>
 
-<div id="main-el">
-</div>
+        <div class="row" id="main-el">
+            <div class="col-md-4"></div>
+            <div class="col-md-8 text"></div>
+        </div>
 
-<script type="text/javascript" src="./js/target/scala-2.11/scalajs-rpg-fastopt.js"></script>
-<script type="text/javascript" src="./js/target/scala-2.11/scalajs-rpg-launcher.js"></script>
 
-</body>
+        <!-- Include JavaScript dependencies -->
+        <script type="text/javascript" src="./js/target/web/web-modules/main/webjars/lib/bootstrap/js/bootstrap.js"></script>
+        <script type="text/javascript" src="./js/target/web/web-modules/main/webjars/lib/jquery/jquery.js"></script>
+
+        <!-- Include Scala.js compiled code -->
+        <script type="text/javascript" src="./js/target/scala-2.11/scalajs-rpg-fastopt.js"></script>
+        <!-- Run JSApp -->
+        <script type="text/javascript" src="./js/target/scala-2.11/scalajs-rpg-launcher.js"></script>
+
+        <!-- 3rd party stylesheets -->
+        <link rel="stylesheet" type="text/css" href="./js/target/web/web-modules/main/webjars/lib/bootstrap/css/bootstrap.min.css">
+
+    </body>
 </html>
