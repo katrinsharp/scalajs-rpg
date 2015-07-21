@@ -12,7 +12,13 @@ object Main extends js.JSApp{
     val lib = new MyLibrary
     val res = lib.sq(2)
     println(res)
-    val target = dom.document.getElementById("main-el")
-    target.textContent = s"From shared: $res"
+    val doc = dom.document
+    val mainEl = doc.getElementById("main-el")
+
+    val parNode = doc.createElement("p")
+    val textNode = doc.createTextNode(s"From shared: $res")
+    parNode.appendChild(textNode)
+    mainEl.appendChild(parNode)
+    
   }
 }
