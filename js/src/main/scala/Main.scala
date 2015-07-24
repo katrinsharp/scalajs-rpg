@@ -1,11 +1,9 @@
 import org.scalajs.dom
-
 import scala.scalajs.js
 import scala.scalajs.js.annotation.JSExport
 
 
-@JSExport
-object Main extends js.JSApp{
+object Main extends js.JSApp {
 
   @JSExport
   def main(): Unit = {
@@ -13,12 +11,14 @@ object Main extends js.JSApp{
     val res = lib.sq(2)
     println(res)
     val doc = dom.document
-    val divInMainEl = doc.getElementById("main-el").getElementsByClassName("text")(0)
+    val divInMainEl = doc.getElementById("main-el")
 
-    val parNode = doc.createElement("p")
-    val textNode = doc.createTextNode(s"From shared: $res")
-    parNode.appendChild(textNode)
-    divInMainEl.appendChild(parNode)
+    divInMainEl.innerHTML = s"""
+       |<div class="col-md-4"></div>
+       |<div class="col-md-8">
+       |  <p>From shared: $res</p>
+       |</div>
+     """.stripMargin
 
   }
 }
