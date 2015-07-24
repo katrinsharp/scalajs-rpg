@@ -1,7 +1,7 @@
 import org.scalajs.dom
 import scala.scalajs.js
 import scala.scalajs.js.annotation.JSExport
-
+import scalatags.JsDom.all._
 
 object Main extends js.JSApp {
 
@@ -13,12 +13,8 @@ object Main extends js.JSApp {
     val doc = dom.document
     val divInMainEl = doc.getElementById("main-el")
 
-    divInMainEl.innerHTML = s"""
-       |<div class="col-md-4"></div>
-       |<div class="col-md-8">
-       |  <p>From shared: $res</p>
-       |</div>
-     """.stripMargin
+    divInMainEl.appendChild(div(`class` := "col-md-4").render)
+    divInMainEl.appendChild(div(`class` := "col-md-8", p(`class` := "red", s"From shared and type safe: $res")).render)
 
   }
 }
