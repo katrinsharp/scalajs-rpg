@@ -12,6 +12,9 @@ object Settings {
     val jQuery = "1.11.1"
     val bootstrap = "3.3.2"
     val fontAwesome = "4.3.0-1"
+    val scalajs = "0.8.0"
+    val scalatags = "0.5.2"
+    val scalajsReact = "0.9.0"
   }
 
   val sharedDependencies = Def.setting(Seq(
@@ -20,14 +23,16 @@ object Settings {
   ))
 
   val jsDependencies = Def.setting(Seq(
-    "org.scala-js" %%% "scalajs-dom" % "0.8.0",
-    "com.lihaoyi" %%% "scalatags" % "0.5.2"
+    "org.scala-js" %%% "scalajs-dom" % versions.scalajs,
+    "com.lihaoyi" %%% "scalatags" % versions.scalatags,
+    "com.github.japgolly.scalajs-react" %%% "core" % versions.scalajsReact
   ))
 
 
   val jsScriptDependencies = Def.setting(Seq(
     "org.webjars" % "jquery" % versions.jQuery / "jquery.js",
-    "org.webjars" % "bootstrap" % versions.bootstrap / "bootstrap.js" dependsOn "jquery.js"
+    "org.webjars" % "bootstrap" % versions.bootstrap / "bootstrap.js" dependsOn "jquery.js",
+    "org.webjars" % "react" % "0.12.2" / "react-with-addons.js" commonJSName "React"
   ))
 
 }
