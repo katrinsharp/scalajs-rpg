@@ -2,42 +2,54 @@ package ui
 
 import japgolly.scalajs.react.{React, ReactEventI, BackendScope, ReactComponentB}
 import japgolly.scalajs.react.vdom.prefix_<^._
+import rx._
 
 object TodoListComponent {
 
+  private val currentText = Var("")
+  def text: Rx[String] = currentText
 
-    val TodoList = ReactComponentB[List[String]]("TodoList")
-      .render(props => {
+  val suggestionList = SuggestionsComponent(text)
 
-      def createItem(itemText: String) = <.li(itemText)
-      <.ul(props map createItem)
-    })
-      .build
 
-    case class State(items: List[String], text: String)
+  val TodoList = ReactComponentB[List[String]]("TodoList")
+    .render(props => {
 
-    class Backend(be: BackendScope[Unit, State]) {
-      def onChange(e: ReactEventI) =
-        be.modState(_.copy(text = e.target.value))
+    def createItem(itemText: String) = <.li(itemText)
+    <.ul(props map createItem)
+  })
+    .build
 
-      def handleSubmit(e: ReactEventI) = {
-        e.preventDefault()
-        be.modState(s => State(s.items :+ s.text, ""))
-      }
+  case class State(items: List[String], text: String)
+
+  class Backend(be: BackendScope[Unit, State]) {
+    def onChange(e: ReactEventI) = {
+      val text = e.currentTarget.value
+      be.modState(_.copy(text = text))
+      currentText() = text
     }
 
-    val component = ReactComponentB[Unit]("TodoListComponent")
-      .initialState(State(List.empty[String], ""))
-      .backend(new Backend(_))
-      .render((_, S, B) =>
-      <.div(
-        <.h3("TODO"),
-        TodoList(S.items),
-        <.form(^.onSubmit ==> B.handleSubmit,
-          <.input(^.onChange ==> B.onChange, ^.value := S.text),
-          <.button("Add #", S.items.length + 1)
-        )
-      )
-      ).buildU
-
+    def handleSubmit(e: ReactEventI) = {
+      e.preventDefault()
+      be.modState(s => State(s.items :+ s.text, ""))
+      currentText() = ""
+    }
   }
+
+  val component = ReactComponentB[Unit]("TodoListComponent")
+    .initialState(State(List.empty[String], ""))
+    .backend(new Backend(_))
+    .render((_, S, B) =>
+    <.div(
+      <.h3("TODO"),
+      TodoList(S.items),
+      <.form(^.onSubmit ==> B.handleSubmit,
+        <.input(^.onChange ==> B.onChange, ^.value := S.text),
+        <.button("Add")
+      ),
+      <.h3("Possible suggestions"),
+      suggestionList
+    )
+    ).buildU
+
+}

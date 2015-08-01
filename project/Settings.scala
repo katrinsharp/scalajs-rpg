@@ -13,6 +13,7 @@ object Settings {
     val bootstrap = "3.3.2"
     val fontAwesome = "4.3.0-1"
     val scalajs = "0.8.0"
+    val scalarx = "0.2.8"
     val scalatags = "0.5.2"
     val scalajsReact = "0.9.0"
   }
@@ -25,7 +26,9 @@ object Settings {
   val jsDependencies = Def.setting(Seq(
     "org.scala-js" %%% "scalajs-dom" % versions.scalajs,
     "com.lihaoyi" %%% "scalatags" % versions.scalatags,
-    "com.github.japgolly.scalajs-react" %%% "core" % versions.scalajsReact
+    "com.github.japgolly.scalajs-react" %%% "core" % versions.scalajsReact,
+    "com.github.japgolly.scalajs-react" %%% "extra" % versions.scalajsReact,
+    "com.lihaoyi" %%% "scalarx" % versions.scalarx
   ))
 
 
