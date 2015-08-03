@@ -16,11 +16,18 @@ object Settings {
     val scalarx = "0.2.8"
     val scalatags = "0.5.2"
     val scalajsReact = "0.9.0"
+    val akka = "2.3.12"
+    val akkaHttp = "1.0"
+    val logBack = "1.1.2"
+    val autowire = "0.2.5"
+    val upickle = "0.3.4"
   }
 
   val sharedDependencies = Def.setting(Seq(
     "org.webjars" % "font-awesome" % versions.fontAwesome % Provided,
-    "org.webjars" % "bootstrap" % versions.bootstrap % Provided
+    "org.webjars" % "bootstrap" % versions.bootstrap % Provided,
+    "com.lihaoyi" %%% "autowire" % versions.autowire,
+    "com.lihaoyi" %%% "upickle" % versions.upickle
   ))
 
   val jsDependencies = Def.setting(Seq(
@@ -36,6 +43,13 @@ object Settings {
     "org.webjars" % "jquery" % versions.jQuery / "jquery.js",
     "org.webjars" % "bootstrap" % versions.bootstrap / "bootstrap.js" dependsOn "jquery.js",
     "org.webjars" % "react" % "0.12.2" / "react-with-addons.js" commonJSName "React"
+  ))
+
+  val jvmDependencies = Def.setting(Seq(
+    "com.typesafe.akka" %% "akka-actor" % versions.akka,
+    "com.typesafe.akka" %% "akka-http-experimental" % versions.akkaHttp,
+    "com.typesafe.akka" %% "akka-slf4j" % versions.akka,
+    "ch.qos.logback" % "logback-classic" % versions.logBack
   ))
 
 }

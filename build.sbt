@@ -18,7 +18,7 @@ lazy val cross = crossProject.in(file(".")).
     libraryDependencies ++= Settings.sharedDependencies.value
   ).
   jvmSettings(
-    // Add JVM-specific settings here
+    libraryDependencies ++= Settings.jvmDependencies.value
   ).
   jsSettings(
     libraryDependencies ++= Settings.jsDependencies.value,
