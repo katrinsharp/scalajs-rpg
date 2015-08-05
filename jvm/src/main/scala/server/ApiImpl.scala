@@ -1,6 +1,7 @@
 package server
 
 import shared.Api
+import shared.Api.Todo
 
 object ApiImpl extends Api {
 
@@ -11,8 +12,12 @@ object ApiImpl extends Api {
     "Talk to kids",
     "Do more Scala")
 
-  def suggestions(subString: String) =
-    suggestionsList.filter(_.toLowerCase.contains(subString.toLowerCase))
+  def suggestions(s: String) =
+    suggestionsList.filter(_.toLowerCase.contains(s.toLowerCase))
 
-  def aaa(subString: String) = s"substring: $subString"
+  def todos(): Seq[Todo] =
+    TodoRepo.getTodos()
+
+  def addTodo(todo: Todo) =
+    TodoRepo.addTodo(todo)
 }

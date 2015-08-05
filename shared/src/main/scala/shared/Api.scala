@@ -1,15 +1,15 @@
 package shared
 
-import shared.Api.Suggestion
-
-//import shared.Api.Suggestion
+import shared.Api.{Todo, Suggestion}
 
 trait Api {
 
-  def suggestions(subString: String): Seq[Suggestion]
-  def aaa(subString: String): String
+  def suggestions(s: String = ""): Seq[Suggestion]
+  def todos(): Seq[Todo]
+  def addTodo(todo: Todo): Unit
 }
 
 object Api {
   type Suggestion = String
+  type Todo = String
 }
