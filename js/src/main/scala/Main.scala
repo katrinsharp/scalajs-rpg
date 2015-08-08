@@ -27,7 +27,7 @@ object Main extends js.JSApp {
     divInMainEl.appendChild(htmlFragment.render)
     divInMainEl.appendChild(htmlFragment2.render)
 
-    React.render(TodoListComponent.component(), doc.getElementById("todo"))
+    React.render(TodoListComponent(), doc.getElementById("todo"))
 
   }
 }

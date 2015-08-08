@@ -7,6 +7,7 @@ object ApiImpl extends Api {
 
   //TODO: should not be hardcoded
   private val suggestionsList = Seq(
+    "Hi from server",
     "Wake up early tomorrow",
     "Walk the dog",
     "Talk to kids",

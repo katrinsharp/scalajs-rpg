@@ -1,17 +1,17 @@
 package ui
 
 import org.scalajs.dom
-import upickle.default._
+import scala.concurrent.Future
 import scala.scalajs.concurrent.JSExecutionContext.Implicits.runNow
 
-object AjaxClient extends autowire.Client[String, Reader, Writer]{
-  override def doCall(req: Request) = {
+object AjaxClient extends autowire.Client[String, upickle.default.Reader, upickle.default.Writer]{
+  override def doCall(req: Request): Future[String] = {
     dom.ext.Ajax.post(
-      url = "/api/" + req.path.mkString("/")//,
-      //data = write(req.args)
+      url = "http://localhost:8080/api/" + req.path.mkString("/"),
+      data = write(req.args)
     ).map(_.responseText)
   }
 
-  def read[Result: Reader](p: String) = read[Result](p)
-  def write[Result: Writer](r: Result) = write(r)
+  def read[Result: upickle.default.Reader](p: String) = upickle.default.read[Result](p)
+  def write[Result: upickle.default.Writer](r: Result) = upickle.default.write(r)
 }

@@ -1,58 +1,67 @@
 package ui
 
 import japgolly.scalajs.react.extra.OnUnmount
-import japgolly.scalajs.react.vdom.all.backgroundColor
-import japgolly.scalajs.react.vdom.prefix_<^._
+import japgolly.scalajs.react.vdom.all._
 import japgolly.scalajs.react.{BackendScope, ReactComponentB}
 import rx._
+import shared.Api
+//this is line that bring call() into scope
+import autowire._
+import shared.Api.Suggestion
+
+import scala.scalajs.concurrent.JSExecutionContext.Implicits.runNow
 
 object SuggestionsComponent {
 
-  type Suggestion = String
+  private val currentSuggestions = Var(Seq.empty[Suggestion])
 
-  //TODO: should come from server
-  val suggestions = Seq("Wake up early tomorrow", "Walk the dog", "Talk to kids", "Do more Scala")
-
+  def suggestionsRx: Rx[Seq[Suggestion]] = currentSuggestions
 
   case class Props(text: Rx[String])
-
-  case class State(suggestions: Seq[Suggestion] = suggestions, txt: String = "")
+  case class State()
 
   private def format(s: String, txt: String) =
     if (txt.isEmpty)
-      <.li(s)
+      li(s)
     else
       s.toLowerCase.indexOf(txt.toLowerCase) match {
-        case -1 => <.li(s)
+        case -1 => li(s)
         case i =>
-          <.li(s.substring(0, i))(<.span(^.cls := "highlight")(txt))(s.substring(i + txt.length, s.length))
+          li(s.substring(0, i))(span(`class` := "highlight")(txt))(s.substring(i + txt.length, s.length))
       }
 
-  def apply(text: Rx[String]) = {
-    component(Props(text))
-  }
+  class Backend(be: BackendScope[Props, Unit]) extends RxObserver(be) {
+    def mounted(): Unit = {
+      react(be.props.text, refreshSuggestions)
+      observe(suggestionsRx)
+    }
 
-  class Backend(t: BackendScope[Props, State]) extends RxObserver(t) {
-    def mounted(): Unit = observe(t.props.text)
+    def refreshSuggestions(text: String) = {
+      if (!text.isEmpty)
+        AjaxClient[Api].suggestions(text).call().foreach(r => currentSuggestions() = r)
+      else
+        currentSuggestions() = Seq.empty[Suggestion]
+    }
   }
 
   val component = ReactComponentB[Props]("SuggestionsComponent")
-    .initialState(State())
+    .stateless
     .backend(new Backend(_))
     .render((P, S, B) => {
 
-    val nextText = P.text()
+      val nextText = P.text()
 
-    val nextSuggestions = nextText match {
-      case "" => suggestions
-      case t => suggestions.filter(_.toLowerCase.contains(t.toLowerCase))
-    }
+      val nextSuggestions = nextText match {
+        case "" => List.empty[Suggestion]
+        case t => currentSuggestions().filter(_.toLowerCase.contains(t.toLowerCase))
+      }
 
-    <.ul(nextSuggestions.map(s => format(s, nextText)))
+      ul(nextSuggestions.map(s => format(s, nextText)))
 
-  })
+    })
     .componentDidMount(_.backend.mounted())
     .configure(OnUnmount.install)
     .build
 
+  def apply(text: Rx[String]) = component(Props(text))
 }
