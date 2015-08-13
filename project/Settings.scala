@@ -21,6 +21,7 @@ object Settings {
     val logBack = "1.1.2"
     val autowire = "0.2.5"
     val upickle = "0.3.4"
+    val react = "0.12.2"
   }
 
   val sharedDependencies = Def.setting(Seq(
@@ -40,9 +41,9 @@ object Settings {
 
 
   val jsScriptDependencies = Def.setting(Seq(
-    "org.webjars" % "jquery" % versions.jQuery / "jquery.js",
-    "org.webjars" % "bootstrap" % versions.bootstrap / "bootstrap.js" dependsOn "jquery.js",
-    "org.webjars" % "react" % "0.12.2" / "react-with-addons.js" commonJSName "React"
+    "org.webjars" % "jquery" % versions.jQuery / "jquery.js" minified "jquery.min.js",
+    "org.webjars" % "bootstrap" % versions.bootstrap / "bootstrap.js" minified "bootstrap.min.js" dependsOn "jquery.js",
+    "org.webjars" % "react" % versions.react / "react-with-addons.js" minified "react-with-addons.min.js" commonJSName "React"
   ))
 
   val jvmDependencies = Def.setting(Seq(

@@ -25,7 +25,7 @@ object TodoListComponent {
   case class State(items: Seq[String] = Seq.empty[String], text: String = "")
 
   val TodoList = ReactComponentB[Seq[Todo]]("TodoList")
-    .render(props => ul(props.map(li(_))))
+    .render(props => ul(props.map(li(`class` := "todo", _))))
     .build
 
   class Backend(be: BackendScope[Props, State]) extends RxObserver(be) {
@@ -55,13 +55,13 @@ object TodoListComponent {
     .backend(new Backend(_))
     .render((P, S, B) =>
     div(
-      h3("TODO"),
+      h3("TODOS"),
       TodoList(currentTodos()),
       form(onSubmit ==> B.handleSubmit,
         input(onChange ==> B.onChange, value := S.text),
-        button("Add")
+        button("ADD")
       ),
-      h3("Possible suggestions"),
+      h3("Suggestions"),
       suggestionList
     ))
     .componentDidMount(_.backend.mounted())
