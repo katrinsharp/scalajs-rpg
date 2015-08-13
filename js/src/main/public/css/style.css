@@ -1,7 +1,40 @@
-.red {
-  color: red;
+body {
+  background-color: #E55934;
+  color: #fff;
 }
 
 .highlight {
-  background-color: yellow;
+  background-color: #FDE74C;
+}
+
+.centered {
+  float: none;
+  margin: 0 auto;
+}
+
+button {
+  line-height: 26px;
+  background-color: #5BC0EB;
+  border: none;
+}
+
+input {
+  line-height: 27px;
+  border: 1px solid #5BC0EB;
+  color: #5BC0EB;
+  font-family: 'Indie Flower';
+}
+
+h1 {
+  color: #5BC0EB;
+  font-size: 48px;
+}
+
+li.todo {
+  font-family: 'Indie Flower';
+  font-size: 18px;
+}
+
+li.suggestion {
+  color: #5BC0EB;
 }

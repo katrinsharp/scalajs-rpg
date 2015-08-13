@@ -1,6 +1,14 @@
 import org.scalajs.sbtplugin.ScalaJSPlugin.autoImport._
 import sbt.Keys._
 
+// Command for building a release
+lazy val ReleaseJsCmd = Command.command("releaseJs") {
+  state =>
+    "crossJS/fullOptJS" ::
+    "crossJS/webStage" ::
+    state
+}
+
 lazy val root = project.in(file(".")).
   aggregate(jsProject, jvmProject).
   settings(
@@ -22,7 +30,9 @@ lazy val cross = crossProject.in(file(".")).
   ).
   jsSettings(
     libraryDependencies ++= Settings.jsDependencies.value,
-    jsDependencies ++= Settings.jsScriptDependencies.value
+    jsDependencies ++= Settings.jsScriptDependencies.value,
+    pipelineStages := Seq(cssCompress),
+    commands += ReleaseJsCmd
   )
 
 lazy val jvmProject = cross.jvm

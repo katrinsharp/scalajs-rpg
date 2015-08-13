@@ -25,9 +25,9 @@ object SuggestionsComponent {
       li(s)
     else
       s.toLowerCase.indexOf(txt.toLowerCase) match {
-        case -1 => li(s)
+        case -1 => li(`class` := "suggestion", s)
         case i =>
-          li(s.substring(0, i))(span(`class` := "highlight")(txt))(s.substring(i + txt.length, s.length))
+          li(`class` := "suggestion", s.substring(0, i))(span(`class` := "highlight")(txt))(s.substring(i + txt.length, s.length))
       }
 
   class Backend(be: BackendScope[Props, Unit]) extends RxObserver(be) {
