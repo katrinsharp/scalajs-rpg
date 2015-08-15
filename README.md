@@ -1,5 +1,9 @@
 Scala.js Really Practical Guide
 
+Please checkout <https://github.com/katrinsharp/scalajs-rpg/wiki> for explanation about the steps of the tutorial. 
+
+How to run the final result - master branch:
+
 How to run this thing in DEV:
 
 You are gonna need 2 consoles open:
@@ -25,11 +29,5 @@ How to create a release version for your client side:
 
 Now you can open index.html from root directory in your web browser
 
-You will still have to run your server as noted in prevous note. I'll add server side packaging soon.  
-
-
-If you want to follow the steps as outlined in the presentation (sbtb-2015.md in the current directory),
-there are git tags that you can use.  
- 
-
+You will still have to run your server as noted in prevous note.
 
