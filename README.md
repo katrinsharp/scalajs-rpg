@@ -11,7 +11,7 @@ You are gonna need 2 consoles open:
   b. crossJVM/run
 ```
 
-Now you can access /'path-to-folder'/scalajs-rpg/index-fastOpt.html
+Now you can open index-fastOpt.html from root directory in your web browser
 
 
 How to create a release version for your client side:
@@ -23,7 +23,7 @@ How to create a release version for your client side:
   c. releaseJs
 ```
 
-Now you can access /'path-to-folder'/scalajs-rpg/index.html 
+Now you can open index.html from root directory in your web browser
 
 You will still have to run your server as noted in prevous note. I'll add server side packaging soon.  
 
