@@ -4,20 +4,24 @@ How to run this thing in DEV:
 
 You are gonna need 2 consoles open:
 
+```
 1. sbt ~fastOptJS
 2. 
   a. sbt
   b. crossJVM/run
+```
 
 Now you can access /'path-to-folder'/scalajs-rpg/index-fastOpt.html
 
 
 How to create a release version for your client side:
 
+```
 1. sbt
   a. fullOptJS
   b. project crossJS
   c. releaseJs
+```
 
 Now you can access /'path-to-folder'/scalajs-rpg/index.html 
 
