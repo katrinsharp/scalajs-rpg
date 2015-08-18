@@ -6,7 +6,7 @@ How to run the final result - master branch:
 
 How to run this thing in DEV:
 
-You are gonna need 2 consoles open:
+You need to open 2 consoles:
 
 ```
 1. sbt ~fastOptJS
