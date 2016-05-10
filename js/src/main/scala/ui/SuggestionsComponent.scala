@@ -7,7 +7,7 @@ import rx._
 import shared.Api
 //this is line that bring call() into scope
 import autowire._
-import shared.Api.Suggestion
+import shared.Suggestion
 
 import scala.scalajs.concurrent.JSExecutionContext.Implicits.runNow
 
@@ -53,10 +53,10 @@ object SuggestionsComponent {
 
       val nextSuggestions = nextText match {
         case "" => List.empty[Suggestion]
-        case t => currentSuggestions().filter(_.toLowerCase.contains(t.toLowerCase))
+        case t => currentSuggestions().filter(_.text.toLowerCase.contains(t.toLowerCase))
       }
 
-      ul(nextSuggestions.map(s => format(s, nextText)))
+      ul(nextSuggestions.map(s => format(s.text, nextText)))
 
     })
     .componentDidMount(_.backend.mounted())

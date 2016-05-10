@@ -1,6 +1,6 @@
 package server
 
-import shared.Api.Todo
+import shared.Todo
 
 
 object TodoRepo {

@@ -1,20 +1,19 @@
 package server
 
-import shared.Api
-import shared.Api.Todo
+import shared.{Api, Suggestion, Todo}
 
 object ApiImpl extends Api {
 
   //TODO: should not be hardcoded
   private val suggestionsList = Seq(
-    "Hi from server",
-    "Wake up early tomorrow",
-    "Walk the dog",
-    "Talk to kids",
-    "Do more Scala")
+    Suggestion("Hi from server"),
+    Suggestion("Wake up early tomorrow"),
+    Suggestion("Walk the dog"),
+    Suggestion("Talk to kids"),
+    Suggestion("Do more Scala"))
 
   def suggestions(s: String) =
-    suggestionsList.filter(_.toLowerCase.contains(s.toLowerCase))
+    suggestionsList.filter(_.text.toLowerCase.contains(s.toLowerCase))
 
   def todos(): Seq[Todo] =
     TodoRepo.getTodos()

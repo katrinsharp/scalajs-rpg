@@ -1,6 +1,6 @@
 package shared
 
-import shared.Api.{Todo, Suggestion}
+import scala.scalajs.js.annotation.{JSExport, JSExportAll}
 
 trait Api {
 
@@ -9,7 +9,8 @@ trait Api {
   def addTodo(todo: Todo): Unit
 }
 
-object Api {
-  type Suggestion = String
-  type Todo = String
-}
+@JSExport
+@JSExportAll
+case class Suggestion(text: String)
+
+case class Todo(text: String)

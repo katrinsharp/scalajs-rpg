@@ -6,7 +6,7 @@ import japgolly.scalajs.react.vdom.all._
 import rx._
 import autowire._
 import shared.Api
-import shared.Api.{Suggestion, Todo}
+import shared.Todo
 import scala.scalajs.concurrent.JSExecutionContext.Implicits.runNow
 
 object TodoListComponent {
@@ -22,10 +22,10 @@ object TodoListComponent {
   val suggestionList = SuggestionsComponent(text)
 
   case class Props()
-  case class State(items: Seq[String] = Seq.empty[String], text: String = "")
+  case class State(items: Seq[Todo] = Seq.empty[Todo], text: String = "")
 
   val TodoList = ReactComponentB[Seq[Todo]]("TodoList")
-    .render(props => ul(props.map(li(`class` := "todo", _))))
+    .render(props => ul(props.map(todo => li(`class` := "todo", todo.text))))
     .build
 
   class Backend(be: BackendScope[Props, State]) extends RxObserver(be) {
@@ -38,8 +38,8 @@ object TodoListComponent {
     def handleSubmit(e: ReactEventI) = {
 
       e.preventDefault()
-      AjaxClient[Api].addTodo(text()).call()
-      currentTodos() = currentTodos() :+ text()
+      AjaxClient[Api].addTodo(Todo(text())).call()
+      currentTodos() = currentTodos() :+ Todo(text())
       currentText() = ""
       be.modState(s => State(currentTodos(), currentText()))
     }
