@@ -2,7 +2,7 @@ package ui
 
 import org.scalajs.dom
 import scala.concurrent.Future
-import scala.scalajs.concurrent.JSExecutionContext.Implicits.runNow
+import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
 
 object AjaxClient extends autowire.Client[String, upickle.default.Reader, upickle.default.Writer]{
   override def doCall(req: Request): Future[String] = {

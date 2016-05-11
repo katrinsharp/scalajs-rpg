@@ -9,7 +9,7 @@ import shared.Api
 import autowire._
 import shared.Suggestion
 
-import scala.scalajs.concurrent.JSExecutionContext.Implicits.runNow
+import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
 
 object SuggestionsComponent {
 
@@ -27,7 +27,8 @@ object SuggestionsComponent {
       s.toLowerCase.indexOf(txt.toLowerCase) match {
         case -1 => li(`class` := "suggestion", s)
         case i =>
-          li(`class` := "suggestion", s.substring(0, i))(span(`class` := "highlight")(txt))(s.substring(i + txt.length, s.length))
+          li(`class` := "suggestion", s.substring(0, i))(span(`class` := "highlight")(txt))(
+            s.substring(i + txt.length, s.length))
       }
 
   class Backend(be: BackendScope[Props, Unit]) extends RxObserver(be) {

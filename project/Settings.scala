@@ -29,7 +29,7 @@ object Settings {
     "org.webjars" % "bootstrap" % versions.bootstrap % Provided,
     "com.lihaoyi" %%% "autowire" % versions.autowire,
     "com.lihaoyi" %%% "upickle" % versions.upickle,
-    "org.scala-js" %% "scalajs-stubs" % scalaJSVersion % "provided"
+    "org.scala-js" %% "scalajs-stubs" % scalaJSVersion % Provided
   ))
 
   val jsDependencies = Def.setting(Seq(

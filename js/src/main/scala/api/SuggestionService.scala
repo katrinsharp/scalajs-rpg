@@ -1,30 +1,18 @@
 package api
 
-import shared.Api
+import shared.{Api, Suggestion}
 import ui.AjaxClient
 import autowire._
-import shared.Suggestion
 
-import scala.scalajs.js.annotation.{JSExport, JSExportAll, RawJSType}
-
-// import scala.concurrent.Await
-// import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
+import scala.scalajs.js.JSConverters._
+import scala.scalajs.js.annotation.{JSExport, RawJSType}
 
-@RawJSType
-trait SuggestionCallback {
-  def onSuccess(result: Seq[Suggestion]): Unit
-}
-
-@JSExport
-@JSExportAll
+@JSExport("SuggestionService")
 class SuggestionService {
 
   @JSExport
-  def suggestFor(text: String, callback: SuggestionCallback): Unit = {
-    AjaxClient[Api].suggestions(text).call().map(callback.onSuccess(_))
-  }
-
+  def suggestionsFor(text: String) =
+    AjaxClient[Api].suggestions(text).call().toJSPromise
 }
-
-//var callback = {onSuccess: function(result){console.log(result.toString())}}

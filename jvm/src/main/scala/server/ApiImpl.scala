@@ -10,7 +10,8 @@ object ApiImpl extends Api {
     Suggestion("Wake up early tomorrow"),
     Suggestion("Walk the dog"),
     Suggestion("Talk to kids"),
-    Suggestion("Do more Scala"))
+    Suggestion("Do more Scala"),
+    Suggestion("Have fun at ScalaDays"))
 
   def suggestions(s: String) =
     suggestionsList.filter(_.text.toLowerCase.contains(s.toLowerCase))
